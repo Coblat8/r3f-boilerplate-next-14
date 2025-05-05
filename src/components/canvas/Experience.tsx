@@ -12,14 +12,12 @@ import { Vector3 } from 'three'
 import vertex from '@/src/glsl/shading/vertex.glsl'
 // @ts-ignore
 import fragment from '@/src/glsl/shading/fragment.glsl'
-// @ts-ignore
-import imageVertex from '@/src/glsl/image/imageVertex.glsl'
 import { extend } from '@react-three/fiber'
 import { types } from '@theatre/core'
 import { MathUtils } from 'three'
 
 
-const CustomSHaderMaterial = shaderMaterial(
+const CustomShaderMaterial = shaderMaterial(
 	{
 		uTime: 0,
 		uColor: new THREE.Color(0.2, 0.0, 0.1),
@@ -27,7 +25,7 @@ const CustomSHaderMaterial = shaderMaterial(
 	vertex,
 	fragment,
 )
-extend({ CustomSHaderMaterial })
+extend({ CustomShaderMaterial })
 
 interface ICustomShaderMaterial extends THREE.ShaderMaterial {
 	uTime: number
@@ -36,7 +34,7 @@ interface ICustomShaderMaterial extends THREE.ShaderMaterial {
 
 declare module '@react-three/fiber' {
 	interface ThreeElements {
-		customShaderMaterial: Object3DNode<ICustomShaderMaterial, typeof CustomSHaderMaterial>
+		customShaderMaterial: Object3DNode<ICustomShaderMaterial, typeof CustomShaderMaterial>
 	}
 }
 
@@ -56,9 +54,7 @@ export default function Experience() {
 		if (cameraRef.current && cameraLookAtRef.current) {
 			cameraRef.current.lookAt(cameraLookAtRef.current.position)
 		}
-
 	})
-
 
 	const isClient = useIsClient()
 	if (!isClient) return null
@@ -86,18 +82,18 @@ export default function Experience() {
 			</e.mesh>
 
 			<mesh>
-				<boxGeometry args={[8, 180, 0.4, 10, 1000]}
+				<boxGeometry args={[1, 1, 1]}
 				/>
 				<customShaderMaterial
 					ref={customShaderRef}
-					key={CustomSHaderMaterial.key}
+					key={CustomShaderMaterial.key}
 					side={THREE.DoubleSide}
 					transparent
 				/>
 			</mesh>
 
 
-			{/* <OrbitControls /> */}
+			<OrbitControls />
 			<GizmoHelper
 				alignment="bottom-right" // widget alignment within scene
 				margin={[80, 80]} // widget margins (X, Y)
