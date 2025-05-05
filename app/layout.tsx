@@ -16,7 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} antialiased flex w-screen  bg-[#09090C] overflow-x-hidden z-10 `}>
+        {children}
+      </body>
     </html>
   );
 }
